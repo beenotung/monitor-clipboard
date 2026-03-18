@@ -47,7 +47,7 @@ npx -y monitor-clipboard [options]
 monitor-clipboard
 
 ## with customization
-monitor-clipboard --dir ~/logs/topic-1-chats/
+monitor-clipboard --dir ~/logs/topic-1-clips/
 ```
 
 **Options** (all optional)
@@ -56,7 +56,7 @@ monitor-clipboard --dir ~/logs/topic-1-chats/
 | --------------- | -------------------------------------------------------------- | -------------- |
 | `--help, -h`    | Show this help message (and then exit)                         | —              |
 | `--ignore-file` | File to store ignore patterns (e.g. `../.gitignore` or `skip`) | `./.gitignore` |
-| `--dir`         | Directory to store the files (e.g. `~/logs/chats/`)            | `./chats`      |
+| `--dir`         | Directory to store the files (e.g. `~/logs/clips/`)            | `./clips`      |
 | `--prefix`      | Prefix of the file name (e.g. `message_`)                      | (empty)        |
 | `--suffix`      | Suffix of the file name (e.g. `_clipboard`)                    | (empty)        |
 | `--ext`         | Extension of the file name (e.g. txt, md, csv, json)           | `txt`          |

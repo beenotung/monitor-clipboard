@@ -20,7 +20,7 @@ Options (all optional):
   --help, -h          Show this help message (and then exit)
   --ignore-file       File to store ignore patterns          default: ./.gitignore
                       e.g. ../.gitignore or 'skip'
-  --dir               Directory to store the files           default: ./chats
+  --dir               Directory to store the files           default: ./clips
                       e.g. ~/logs/chats/
   --prefix            Prefix of the file name                default: (empty)
                       e.g. message_
@@ -39,7 +39,7 @@ Options (all optional):
 
 function getArgs() {
   let ignore_file = '.gitignore'
-  let dir = 'chats'
+  let dir = 'clips'
   let prefix = ''
   let suffix = ''
   let ext = 'txt'
