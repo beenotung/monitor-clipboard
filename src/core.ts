@@ -25,10 +25,12 @@ export async function* watchClipboard(options: {
   }
 }
 
+/** can be used as the normalize function for watchClipboard */
 export function trim(content: string) {
   return content.trim()
 }
 
+/** can be used as the normalize function for watchClipboard */
 export function no_trim(content: string) {
   return content
 }
@@ -102,7 +104,6 @@ export function toFilePath(options: {
   prefix: string
   suffix: string
   content: string
-  /** default is '.txt' */
   ext: string
 }) {
   let ext = options.ext

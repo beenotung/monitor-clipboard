@@ -14,7 +14,7 @@ function showHelp() {
 Usage: clipboard-monitor [options]
 
 Examples:
-  clipboard-monitor --dir chats
+  clipboard-monitor --dir ~/logs/topic-1-chats/
 
 Options (all optional):
   --help, -h          Show this help message (and then exit)
