@@ -1,8 +1,8 @@
-# clipboard-monitor
+# monitor-clipboard
 
 A CLI that watches your clipboard and saves each new copy to a file. Useful for capturing chat snippets, code blocks, or any copied text over time.
 
-[![npm Package Version](https://img.shields.io/npm/v/clipboard-monitor)](https://www.npmjs.com/package/clipboard-monitor)
+[![npm Package Version](https://img.shields.io/npm/v/monitor-clipboard)](https://www.npmjs.com/package/monitor-clipboard)
 
 ## Features
 
@@ -21,7 +21,7 @@ A CLI that watches your clipboard and saves each new copy to a file. Useful for 
 ## Installation (recommended)
 
 ```bash
-npm install -g clipboard-monitor
+npm install -g monitor-clipboard
 ```
 
 You can also use [pnpm](https://pnpm.io/) or [yarn](https://yarnpkg.com/)
@@ -31,23 +31,23 @@ You can also use [pnpm](https://pnpm.io/) or [yarn](https://yarnpkg.com/)
 (if you installed it globally)
 
 ```bash
-clipboard-monitor [options]
+monitor-clipboard [options]
 ```
 
 (if you didn't install it globally)
 
 ```bash
-npx -y clipboard-monitor [options]
+npx -y monitor-clipboard [options]
 ```
 
 **Examples**
 
 ```bash
 ## with default options
-clipboard-monitor
+monitor-clipboard
 
 ## with customization
-clipboard-monitor --dir ~/logs/topic-1-chats/
+monitor-clipboard --dir ~/logs/topic-1-chats/
 ```
 
 **Options** (all optional)
@@ -64,7 +64,7 @@ clipboard-monitor --dir ~/logs/topic-1-chats/
 | `--auto-trim`   | Automatically trim the content                                 | yes            |
 | `--no-trim`     | Do not trim the content                                        | —              |
 
-Run `clipboard-monitor --help` for the full help output.
+Run `monitor-clipboard --help` for the full help output.
 
 ## Usage as a library package
 
@@ -77,7 +77,7 @@ import {
   trim,
   toFilePath,
   restoreFromLastFile,
-} from 'clipboard-monitor'
+} from 'monitor-clipboard'
 import { writeFileSync } from 'fs'
 
 for await (let content of watchClipboard({

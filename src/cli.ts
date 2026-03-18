@@ -11,10 +11,10 @@ import {
 function showHelp() {
   console.log(
     `
-Usage: clipboard-monitor [options]
+Usage: monitor-clipboard [options]
 
 Examples:
-  clipboard-monitor --dir ~/logs/topic-1-chats/
+  monitor-clipboard --dir ~/logs/topic-1-chats/
 
 Options (all optional):
   --help, -h          Show this help message (and then exit)
@@ -109,9 +109,9 @@ function isWithNpx() {
 
 function getSelfExec() {
   if (isWithNpx()) {
-    return 'npx clipboard-monitor'
+    return 'npx monitor-clipboard'
   }
-  return 'clipboard-monitor'
+  return 'monitor-clipboard'
 }
 
 async function main() {

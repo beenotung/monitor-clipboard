@@ -1,5 +1,5 @@
 {
-  "name": "clipboard-monitor",
+  "name": "monitor-clipboard",
   "version": "0.0.0",
   "type": "commonjs",
   "description": "A CLI that watches your clipboard and saves each new copy to a file. Useful for capturing chat snippets, code blocks, or any copied text over time.",
@@ -20,16 +20,16 @@
   "license": "BSD-2-Clause",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beenotung/clipboard-monitor.git"
+    "url": "git+https://github.com/beenotung/monitor-clipboard.git"
   },
-  "homepage": "https://github.com/beenotung/clipboard-monitor#readme",
+  "homepage": "https://github.com/beenotung/monitor-clipboard#readme",
   "bugs": {
-    "url": "https://github.com/beenotung/clipboard-monitor/issues"
+    "url": "https://github.com/beenotung/monitor-clipboard/issues"
   },
   "main": "dist/core.js",
   "types": "dist/core.d.ts",
   "bin": {
-    "clipboard-monitor": "bin.js"
+    "monitor-clipboard": "bin.js"
   },
   "files": [
     "dist"
