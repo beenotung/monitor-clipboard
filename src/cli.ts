@@ -19,17 +19,17 @@ Examples:
 Options (all optional):
   --help, -h          Show this help message (and then exit)
   --ignore-file       File to store ignore patterns          default: ./.gitignore
-                      e.g. ../.gitignore or 'skip'
+                        e.g. ../.gitignore or 'skip'
   --dir               Directory to store the files           default: ./clips
-                      e.g. ~/logs/chats/
+                        e.g. ~/logs/chats/
   --prefix            Prefix of the file name                default: (empty)
-                      e.g. message_
+                        e.g. message_
   --suffix            Suffix of the file name                default: (empty)
-                      e.g. _clipboard
+                        e.g. _clipboard
   --ext               Extension of the file name             default: txt
-                      e.g. txt, md, csv, tsv, json, etc
-  --interval          Interval to check clipboard, ms        default: 100
-                      e.g. 300, 500, 800
+                        e.g. txt, md, csv, tsv, json, etc
+  --interval <ms>     Interval to check clipboard, ms        default: 100
+                        e.g. 300, 500, 800
   --auto-trim         Automatically trim the content         default: yes
   --no-trim           Do not trim the content
 `.trim(),
