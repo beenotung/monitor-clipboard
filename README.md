@@ -2,6 +2,10 @@
 
 A CLI that watches your clipboard and saves each new copy to a file. Useful for capturing chat snippets, code blocks, or any copied text over time.
 
+## Use cases
+
+- **AI chat backup** — When an app only exports one message at a time, run the monitor and copy each message in order. Skip any you don't want. Then run with `--concat all.txt` to merge them into one file.
+
 [![npm Package Version](https://img.shields.io/npm/v/monitor-clipboard)](https://www.npmjs.com/package/monitor-clipboard)
 
 ## Features
@@ -48,6 +52,10 @@ monitor-clipboard
 
 ## with customization
 monitor-clipboard --dir ~/logs/topic-1-clips/
+
+## concatenate clips to one file (one-shot and exit, not monitor mode)
+monitor-clipboard --concat all.txt
+monitor-clipboard --dir ./chats --concat all.txt --append
 ```
 
 **Options** (all optional)
@@ -63,6 +71,15 @@ monitor-clipboard --dir ~/logs/topic-1-clips/
 | `--interval`    | Interval to check clipboard, ms (e.g. 300, 500, 800)           | `100`          |
 | `--auto-trim`   | Automatically trim the content                                 | yes            |
 | `--no-trim`     | Do not trim the content                                        | —              |
+
+**Options for concat mode:**
+
+| Option        | Description                        | Default       |
+| ------------- | ---------------------------------- | ------------- |
+| `--concat`    | Concatenate clips to file and exit | —             |
+| `--overwrite` | With `--concat`: overwrite file    | yes           |
+| `--append`    | With `--concat`: append to file    | —             |
+| `--delimiter` | For the concat file                | `\n\n---\n\n` |
 
 Run `monitor-clipboard --help` for the full help output.
 
@@ -149,6 +166,15 @@ export function parseFilenames(options: {
 }): ({ seq: number; filename: string } | null)[]
 
 export function addToIgnore(options: { file: string; pattern: string }): void
+
+export function concatClips(options: {
+  dir: string
+  prefix: string
+  suffix: string
+  ext: string
+  separator: string
+  normalize: (content: string) => string
+}): string
 ```
 
 ## License

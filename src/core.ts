@@ -1,6 +1,12 @@
 import { execSync } from 'child_process'
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'fs'
-import { join } from 'path'
+import {
+  appendFileSync,
+  existsSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'fs'
+import { join, normalize, sep } from 'path'
 
 export function readClipboard() {
   return execSync('xclip -sel clipboard -o').toString()
@@ -45,7 +51,7 @@ export function getLastFile(options: {
   let filenames = readdirSync(dir)
   let files = parseFilenames({ prefix, suffix, ext, filenames })
   let last = files
-    .filter(file => file !== null)
+    .filter(file => file.seq !== null)
     .sort((a, b) => b.seq - a.seq)[0]
   return last || null
 }
@@ -69,7 +75,7 @@ export function parseFilenames(options: {
       let seq = +filename.slice(before.length, -after.length)
       return { seq, filename }
     }
-    return null
+    return { seq: null, filename }
   })
 }
 
@@ -125,6 +131,43 @@ export function toFilePath(options: {
 
 export function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+export function concatClips(options: {
+  dir: string
+  prefix: string
+  suffix: string
+  ext: string
+  delimiter: string
+  normalize: (content: string) => string
+}): string {
+  let { dir, prefix, suffix, ext, delimiter, normalize } = options
+
+  if (!existsSync(dir)) {
+    throw new Error(`Directory ${JSON.stringify(dir)} does not exist`)
+  }
+  let filenames = readdirSync(dir)
+  let parsed = parseFilenames({ prefix, suffix, ext, filenames })
+
+  let badFiles = parsed.filter(file => !file.seq)
+  if (badFiles.length > 0) {
+    console.log('skip', badFiles.length, 'files (pattern not matched)')
+    for (let file of badFiles) {
+      console.log('-', file.filename)
+    }
+  }
+
+  let content = parsed
+    .filter(file => file.seq != null)
+    .sort((a, b) => a.seq - b.seq)
+    .map(file => normalize(readFileSync(join(dir, file.filename)).toString()))
+    .join(delimiter)
+
+  if (!content.endsWith('\n')) {
+    content += '\n'
+  }
+
+  return content
 }
 
 export function addToIgnore(options: { file: string; pattern: string }) {

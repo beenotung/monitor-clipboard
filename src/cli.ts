@@ -1,6 +1,7 @@
-import { existsSync, mkdirSync, writeFileSync } from 'fs'
+import { appendFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
 import {
   addToIgnore,
+  concatClips,
   no_trim,
   restoreFromLastFile,
   toFilePath,
@@ -28,10 +29,17 @@ Options (all optional):
                         e.g. _clipboard
   --ext               Extension of the file name             default: txt
                         e.g. txt, md, csv, tsv, json, etc
-  --interval <ms>     Interval to check clipboard, ms        default: 100
+  --interval          Interval to check clipboard, ms        default: 100
                         e.g. 300, 500, 800
   --auto-trim         Automatically trim the content         default: yes
   --no-trim           Do not trim the content
+
+Options for concat mode:
+  --concat <file>     Concat all clips to this file (and then exit)
+                        e.g. all.txt
+  --overwrite         Overwrite the concat file              default: yes
+  --append            Append to the concat file
+  --delimiter         For the concat file                    default: \n\n---\n\n
 `.trim(),
   )
   process.exit(0)
@@ -45,6 +53,11 @@ function getArgs() {
   let ext = 'txt'
   let interval = 100
   let auto_trim = true
+
+  /* concat options */
+  let concatOutputFile = ''
+  let mode: 'append' | 'overwrite' = 'overwrite'
+  let delimiter = '\n\n---\n\n'
 
   let args = process.argv.slice(2)
   for (let i = 0; i < args.length; i++) {
@@ -91,12 +104,44 @@ function getArgs() {
       auto_trim = false
       continue
     }
+
+    /* concat options */
+    if (arg === '--concat') {
+      concatOutputFile = args[i + 1]
+      i++
+      continue
+    }
+    if (arg === '--append') {
+      mode = 'append'
+      continue
+    }
+    if (arg === '--overwrite') {
+      mode = 'overwrite'
+      continue
+    }
+    if (arg === '--delimiter') {
+      delimiter = args[i + 1]
+      i++
+      continue
+    }
+
     console.error(`unknown argument: ${JSON.stringify(arg)}`)
     let selfExec = getSelfExec()
     console.error(`Run \`${selfExec} --help\` for help.`)
     process.exit(1)
   }
-  return { ignore_file, dir, prefix, suffix, ext, interval, auto_trim }
+  return {
+    ignore_file,
+    dir,
+    prefix,
+    suffix,
+    ext,
+    interval,
+    auto_trim,
+    concatOutputFile,
+    mode,
+    delimiter,
+  }
 }
 
 function isWithNpx() {
@@ -116,6 +161,24 @@ function getSelfExec() {
 
 async function main() {
   let args = getArgs()
+
+  if (args.concatOutputFile) {
+    let { concatOutputFile, mode, delimiter } = args
+    let content = concatClips({
+      normalize: args.auto_trim ? trim : no_trim,
+      ...args,
+    })
+    if (mode === 'overwrite') {
+      writeFileSync(concatOutputFile, content)
+      process.exit(0)
+    }
+    if (existsSync(concatOutputFile)) {
+      content = delimiter + content
+    }
+    appendFileSync(concatOutputFile, content)
+    process.exit(0)
+  }
+
   let { ignore_file, dir, prefix, suffix, ext, interval, auto_trim } = args
 
   let normalize = auto_trim ? trim : no_trim
