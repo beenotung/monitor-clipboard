@@ -11,6 +11,9 @@
   "files": [
     "dist"
   ],
+  "bin": {
+    "clipboard-monitor": "bin.js"
+  },
   "scripts": {
     "start": "ts-node src/watch-clipboard.ts",
     "test": "tsc --noEmit",
