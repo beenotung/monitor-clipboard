@@ -19,7 +19,7 @@ Examples:
 Options (all optional):
   --help, -h          Show this help message (and then exit)
   --ignore-file       File to store ignore patterns          default: ./.gitignore
-                      e.g. ../.gitignore
+                      e.g. ../.gitignore or 'skip'
   --dir               Directory to store the files           default: ./chats
                       e.g. ~/logs/chats/
   --prefix            Prefix of the file name                default: (empty)
@@ -120,7 +120,9 @@ async function main() {
 
   let normalize = auto_trim ? trim : no_trim
 
-  addToIgnore({ file: ignore_file, pattern: dir })
+  if (ignore_file !== 'skip') {
+    addToIgnore({ file: ignore_file, pattern: dir })
+  }
 
   mkdirSync(dir, { recursive: true })
 
