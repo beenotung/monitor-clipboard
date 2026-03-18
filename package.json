@@ -1,6 +1,6 @@
 {
   "name": "monitor-clipboard",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "commonjs",
   "description": "A CLI that watches your clipboard and saves each new copy to a file. Useful for capturing chat snippets, code blocks, or any copied text over time.",
   "keywords": [
